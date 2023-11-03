@@ -27,8 +27,8 @@ window.onload = function () {
     let audio1 = new Audio('tik.mp3');
     let audio2 = new Audio('beep.wav');
     let audio3 = new Audio('ending.wav');
-    let audio4 = new Audio('plz.m4a');
-    let audio5 = new Audio('oneMore.m4a');
+    let audio4 = new Audio('tik.m4a'); // plz
+    let audio5 = new Audio('tik.m4a'); // oneMore
   
     // '한판 더' 버튼 누르면, 사운드 재생하고, 페이지 reload
     btn1.addEventListener('mouseup', () => {
