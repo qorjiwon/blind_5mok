@@ -1,4 +1,7 @@
-window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
+let p1Color = 'red';
+let p2Color = 'red';
+
+window.onload = function () {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     const margin = 30;
@@ -7,7 +10,6 @@ window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
     const rowSize = 600 / row; // 바둑판 한 칸의 너비
     const dolSize = 13;  // 바둑돌 크기
     let count = 0;
-    let p1Color = 'black', p2Color = 'white';
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
     let btn2 = document.querySelector('#withdraw');
@@ -41,19 +43,6 @@ window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
     });
   
     draw(); // 시작하면서 빈 바둑판 그리기
-  
-    // 배열을 콘솔창에 grid로 보여주는 함수.
-    // 코딩하면서 바둑판이 어떻게 그려지는지 콘솔창에서 확인하려는 목적이고, 게임과는 관계 없음.
-    function indexView(m) {
-      let s = '\n';
-      let c = 0;
-      for (let e of m) {
-        s += `${e} `;
-        if (c % (row + 1) === row) s += '\n'; //줄바꿈 문자 삽입 
-        c++;
-      }
-      return s;
-    }
   
     // x,y 좌표를 배열의 index값으로 변환
     let xyToIndex = (x, y) => {
@@ -121,7 +110,7 @@ window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
         let b = indexToXy(i)[1];
   
         if (board[xyToIndex(a, b)] == 1) { // Player1(흑)
-          ctx.fillStyle = showboard[xyToIndex];
+          ctx.fillStyle = showboard[xyToIndex(a, b)];
           ctx.beginPath();
           ctx.arc(
             a * rowSize + margin,
@@ -133,7 +122,7 @@ window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
           ctx.fill();
         }
         if (board[xyToIndex(a, b)] == 2) { // Player2(백)
-          ctx.fillStyle = showboard[xyToIndex];
+          ctx.fillStyle = showboard[xyToIndex(a, b)];
           ctx.beginPath();
           ctx.arc(
             a * rowSize + margin,
@@ -261,10 +250,18 @@ window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
             // 이미 돌이 놓여진 자리이면 아무것도 하지 않음
           } else {
             // 비어있는 자리이면, 순서에 따라서 흑,백 구분해서 그리는 함수 실행
-            count % 2 == 0
-              ? (board[xyToIndex(x, y)] = 1)
-              : (board[xyToIndex(x, y)] = 2);
+            if (count % 2 == 0){
+                board[xyToIndex(x, y)] = 1;
+                showboard[xyToIndex(x,y)] = p1Color;
+            }
+            else {
+                board[xyToIndex(x, y)] = 2;
+                showboard[xyToIndex(x,y)] = p2Color;
+            }
             count++;
+            console.log(count, p1Color, p2Color);
+            console.log(board);
+            console.log(showboard);
             drawCircle(x, y);
           }
         }
@@ -282,8 +279,8 @@ window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
 
     // 현재 버튼 찾기
     const button = document.querySelectorAll("." + color)[n];
-    if (n==0) p1Color = "'"+color+"'";
-    else p2Color = "'"+color+"'";
+    if (n==0) p1Color = color;
+    else p2Color = color;
 
     console.log(n, p1Color, p2Color);
     // 현재 버튼 스타일 변경

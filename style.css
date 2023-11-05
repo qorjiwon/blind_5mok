@@ -8,7 +8,13 @@ body {
     padding : 0;
     margin-left: 0px;
     margin-top: 10px;
+    background-color: beige;
+    /*
     background-image: linear-gradient(to right, moccasin 50%, Peachpuff 50%);
+    */
+}
+#main{
+    text-align: center;
 }
 
 .container{
@@ -26,21 +32,13 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: aliceblue;
     z-index: 1;
     display: block;
 }
 
-#message {
-    /* position: absolute; */
-    grid-area: message;
-    font-size: 30px;
-    font-weight: bolder;
+#main{
+    width: 80%;
     text-align: center;
-    margin-left: 50%;
-    /* width: 400px;
-    height: 50px; */
-    /* border : 2px solid green; */
 }
 
 .buttons {
@@ -50,8 +48,9 @@ canvas {
     height: 50px;
     /* border : 2px solid purple; */
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 5fr 5fr;
     grid-template-areas: "withdraw restart";
+    grid-column-gap: 5%
 }
 
 #withdraw {
@@ -212,5 +211,5 @@ canvas {
 
 .highlight-button {
     transform: scale(1.1);
-    box-shadow: 0 0 15px wheat;
+    box-shadow: 0 0 15px grey;
 }
