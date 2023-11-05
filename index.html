@@ -3,29 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Document</title>
+    <title>소융 E-SPORTS</title>
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-    <div class="message">Blind Five_Mok</div>
-    <div class="buttons">
-        <button id="withdraw">무르기</button>
-        <button id="reload">한 판 더 !</button>
+        <section id="message">Blind Five Mok</section>
+        <section id="button">
+            <div class="buttons">
+                <div>
+                    <button id="withdraw" class="learn-more">무르기</button>
+                </div>
+                <div>
+                    <button id="reload" style="font-weight: bolder;">한 판 더 !</button>
+                </div>
+            </div>
+        </section>
+        <section id="game">
+            <div class="winShow1">Player1 승리! <!--검정-->
+                <div class="trophy">
+                    <img id="trophyImg" src="trophy.png" width="300px" height="300px" alt="">
+                </div>
+            </div>
+            <div class="winShow2">Player2 승리! <!--흰색-->
+                <div class="trophy">
+                    <img id="trophyImg2" src="trophy.png" width="300px" height="300px" alt="">
+                </div>
+            </div>
+            <canvas id='canvas'></canvas>
+            </div>
+            <div>
+                <div class="Player1">
+                    <button class="red" onclick="changeColorAndSize('red',0)"></button>
+                    <button class="orange" onclick="changeColorAndSize('orange',0)"></button>
+                    <button class="yellow" onclick="changeColorAndSize('yellow',0)"></button>
+                    <button class="green" onclick="changeColorAndSize('green',0)"></button>
+                    <button class="blue" onclick="changeColorAndSize('blue',0)"></button>
+                    <button class="purple" onclick="changeColorAndSize('purple',0)"></button>
+                    <button class="pink" onclick="changeColorAndSize('pink',0)"></button>
+                </div>
+                <div class="Player2">
+                    <button class="red" onclick="changeColorAndSize('red',1)"></button>
+                    <button class="orange" onclick="changeColorAndSize('orange',1)"></button>
+                    <button class="yellow" onclick="changeColorAndSize('yellow',1)"></button>
+                    <button class="green" onclick="changeColorAndSize('green',1)"></button>
+                    <button class="blue" onclick="changeColorAndSize('blue',1)"></button>
+                    <button class="purple" onclick="changeColorAndSize('purple',1)"></button>
+                    <button class="pink" onclick="changeColorAndSize('pink',1)"></button>
+                </div>
+                <div id="turn"></div>
+            </div>
+        </section>
     </div>
-    <div class="winShow1">검정색 승리
-        <div class="trophy">
-            <img id="trophyImg" src="trophy.png" width="300px" height="300px" alt="">
-        </div>
-    </div>
-    <div class="winShow2">하얀색 승리
-        <div class="trophy">
-            <img id="trophyImg2" src="trophy.png" width="300px" height="300px" alt="">
-        </div>
-    </div>
-    <canvas id='canvas'></canvas>
-</div>
-
 </body>
 </html>

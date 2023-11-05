@@ -7,6 +7,7 @@ window.onload = function () {
     const rowSize = 600 / row; // 바둑판 한 칸의 너비
     const dolSize = 13;  // 바둑돌 크기
     let count = 0;
+    let p1Color, p2Color;
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
     let btn2 = document.querySelector('#withdraw');
@@ -24,22 +25,16 @@ window.onload = function () {
     ];
     const blackWinScreen = document.querySelector('.winShow1');
     const whiteWinScreen = document.querySelector('.winShow2');
-    let audio1 = new Audio('tik.mp3');
-    let audio2 = new Audio('beep.wav');
-    let audio3 = new Audio('ending.wav');
-    let audio4 = new Audio('tik.m4a'); // plz
-    let audio5 = new Audio('tik.m4a'); // oneMore
   
     // '한판 더' 버튼 누르면, 사운드 재생하고, 페이지 reload
     btn1.addEventListener('mouseup', () => {
-      audio5.play();
       setTimeout(() => {
         location.reload();
       }, 2000);
     });
     // 무르기 버튼 누르면, 사운드 재생하고, withdraw() 함수 실행
     btn2.addEventListener('mouseup', () => {
-      audio4.play();
+
       withdraw();
     });
   
@@ -124,7 +119,7 @@ window.onload = function () {
         let a = indexToXy(i)[0];
         let b = indexToXy(i)[1];
   
-        if (board[xyToIndex(a, b)] == 1) {
+        if (board[xyToIndex(a, b)] == 1) { // Player1(흑)
           ctx.fillStyle = 'black';
           ctx.beginPath();
           ctx.arc(
@@ -136,7 +131,7 @@ window.onload = function () {
           );
           ctx.fill();
         }
-        if (board[xyToIndex(a, b)] == 2) {
+        if (board[xyToIndex(a, b)] == 2) { // Player2(백)
           ctx.fillStyle = 'white';
           ctx.beginPath();
           ctx.arc(
@@ -149,8 +144,6 @@ window.onload = function () {
           ctx.fill();
         }
       }
-      audio1.currentTime = 0.5; // 돌 놓는 소리 파일을 0.5초 부분부터 재생
-      audio1.play(); // 돌 놓는 소리 재생
   
       checkWin(x, y); // 돌이 5개 연속 놓였는지 확인 함수 실행
   
@@ -228,7 +221,6 @@ window.onload = function () {
   
     // 승리 화면 표시
     function winShow(x) {
-      audio3.play();
       switch (x) {
         case 1:
           // 음악이 재생되도록 약간의 시차를 두고 화면 표시
@@ -277,5 +269,64 @@ window.onload = function () {
         }
       }
     });
-  };;
-  
+  };
+
+  function changeColorAndSize(color, n) {
+    // 이전에 하이라이트된 버튼 찾아 스타일 원복
+    const highlightedButtons = document.querySelectorAll(".highlight-button");
+    for (const highlightedButton of highlightedButtons) {
+        highlightedButton.style.backgroundColor = "";
+        highlightedButton.classList.remove("highlight-button");
+    }
+
+    // 현재 버튼 찾기
+    const button = document.querySelectorAll("." + color)[n];
+    if (n==0) p1Color = color;
+    else p2Color = color;
+
+    // 현재 버튼 스타일 변경
+    button.style.backgroundColor = color;
+    button.classList.add("highlight-button");
+}
+
+function disablePlayer1Buttons() {
+    const player1Buttons = document.querySelectorAll(".Player1 button");
+    for (const button of player1Buttons) {
+        button.disabled = true;  // Player1 버튼 비활성화
+    }
+}
+
+function enablePlayer1Buttons() {
+    const player1Buttons = document.querySelectorAll(".Player1 button");
+    for (const button of player1Buttons) {
+        button.disabled = false;  // Player1 버튼 활성화
+    }
+}
+
+// Player2 차례에 Player1 버튼 비활성화, Player2 버튼 활성화
+function switchToPlayer2Turn() {
+    disablePlayer1Buttons();  // Player1 버튼 비활성화
+    enablePlayer2Buttons();   // Player2 버튼 활성화
+}
+
+// Player1 차례에 Player2 버튼 비활성화, Player1 버튼 활성화
+function switchToPlayer1Turn() {
+    disablePlayer2Buttons();  // Player2 버튼 비활성화
+    enablePlayer1Buttons();   // Player1 버튼 활성화
+}
+
+// Player2 버튼들을 활성화하는 함수 (Player2 차례에서 사용)
+function enablePlayer2Buttons() {
+    const player2Buttons = document.querySelectorAll(".Player2 button");
+    for (const button of player2Buttons) {
+        button.disabled = false;  // Player2 버튼 활성화
+    }
+}
+
+// Player2 버튼들을 비활성화하는 함수 (Player1 차례에서 사용)
+function disablePlayer2Buttons() {
+    const player2Buttons = document.querySelectorAll(".Player2 button");
+    for (const button of player2Buttons) {
+        button.disabled = true;  // Player2 버튼 비활성화
+    }
+}
