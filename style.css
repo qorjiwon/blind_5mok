@@ -8,7 +8,7 @@ body {
     padding : 0;
     margin-left: 0px;
     margin-top: 10px;
-    background-image: linear-gradient(to right, powderblue 50%, yellowgreen 50%);
+    background-image: linear-gradient(to right, moccasin 50%, Peachpuff 50%);
 }
 
 .container{
@@ -163,8 +163,8 @@ canvas {
 }
 
 .Player1 button {
-    width: 50px;
-    height: 50px;
+    width: 47px;
+    height: 47px;
     border: none;
     border-radius: 50%;
     margin: 5px;
@@ -194,8 +194,8 @@ canvas {
 }
 
 .Player2 button {
-    width: 50px;
-    height: 50px;
+    width: 47px;
+    height: 47px;
     border: none;
     border-radius: 50%;
     margin: 5px;

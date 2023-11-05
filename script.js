@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function () { // HTML 문서가 로드되면 실행되는 함수
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     const margin = 30;
@@ -7,11 +7,13 @@ window.onload = function () {
     const rowSize = 600 / row; // 바둑판 한 칸의 너비
     const dolSize = 13;  // 바둑돌 크기
     let count = 0;
-    let p1Color, p2Color;
+    let p1Color = 'black', p2Color = 'white';
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
     let btn2 = document.querySelector('#withdraw');
     let board = new Array(Math.pow(row + 1, 2)).fill(-1); // 144개의 배열을 생성해서 -1로 채움
+    let showboard = new Array(Math.pow(row + 1, 2)).fill(-1);
+    let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
     let history = new Array();
     let checkDirection = [
       [1, -1],
@@ -26,13 +28,13 @@ window.onload = function () {
     const blackWinScreen = document.querySelector('.winShow1');
     const whiteWinScreen = document.querySelector('.winShow2');
   
-    // '한판 더' 버튼 누르면, 사운드 재생하고, 페이지 reload
+    // '한판 더' 버튼 누르면, 페이지 reload
     btn1.addEventListener('mouseup', () => {
       setTimeout(() => {
         location.reload();
       }, 2000);
     });
-    // 무르기 버튼 누르면, 사운드 재생하고, withdraw() 함수 실행
+    // 무르기 버튼 누르면, withdraw() 함수 실행
     btn2.addEventListener('mouseup', () => {
 
       withdraw();
@@ -68,12 +70,12 @@ window.onload = function () {
   
     // 바둑판 그리기 함수
     function draw() {
-      ctx.fillStyle = '#e38d00';
+      ctx.fillStyle = 'Lightsteelblue';
       ctx.fillRect(0, 0, cw, ch);
       for (let x = 0; x < row; x++) {
         for (let y = 0; y < row; y++) {
           let w = (cw - margin * 2) / row;
-          ctx.strokeStyle = 'black';
+          ctx.strokeStyle = 'white';
           ctx.lineWidth = 1;
           ctx.strokeRect(w * x + margin, w * y + margin, w, w);
         }
@@ -82,7 +84,7 @@ window.onload = function () {
       // 화점에 점 찍기
       for (let a = 0; a < 3; a++) {
         for (let b = 0; b < 3; b++) {
-          ctx.fillStyle = 'black';
+          ctx.fillStyle = 'white';
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.arc(
@@ -114,13 +116,12 @@ window.onload = function () {
     drawCircle = (x, y) => {
       draw();
       drawRect(x, y);
-      for (i = 0; i < board.length; i++) {
-        // 모든 눈금의 돌의 유무,색깔 알아내기
+      for (i = 0; i < board.length; i++) { // 모든 눈금의 돌의 유무,색깔 알아내기
         let a = indexToXy(i)[0];
         let b = indexToXy(i)[1];
   
         if (board[xyToIndex(a, b)] == 1) { // Player1(흑)
-          ctx.fillStyle = 'black';
+          ctx.fillStyle = showboard[xyToIndex];
           ctx.beginPath();
           ctx.arc(
             a * rowSize + margin,
@@ -132,7 +133,7 @@ window.onload = function () {
           ctx.fill();
         }
         if (board[xyToIndex(a, b)] == 2) { // Player2(백)
-          ctx.fillStyle = 'white';
+          ctx.fillStyle = showboard[xyToIndex];
           ctx.beginPath();
           ctx.arc(
             a * rowSize + margin,
@@ -165,8 +166,8 @@ window.onload = function () {
         let a = indexToXy(i)[0];
         let b = indexToXy(i)[1];
   
-        if (lastBoard[xyToIndex(a, b)] == 1) {
-          ctx.fillStyle = 'black';
+        if (lastBoard[xyToIndex(a, b)] == 1) { // 흑
+          ctx.fillStyle = showboard[xyToIndex];
           ctx.beginPath();
           ctx.arc(
             a * rowSize + margin,
@@ -177,8 +178,8 @@ window.onload = function () {
           );
           ctx.fill();
         }
-        if (lastBoard[xyToIndex(a, b)] == 2) {
-          ctx.fillStyle = 'white';
+        if (lastBoard[xyToIndex(a, b)] == 2) { // 백
+          ctx.fillStyle = showboard[xyToIndex];
           ctx.beginPath();
           ctx.arc(
             a * rowSize + margin,
@@ -255,9 +256,9 @@ window.onload = function () {
           e.offsetY > 10 &&
           e.offsetY < 640
         ) {
-          // 이미 돌이 놓여진 자리이면 비프음 출력
+          
           if (board[xyToIndex(x, y)] != -1) {
-            audio2.play();
+            // 이미 돌이 놓여진 자리이면 아무것도 하지 않음
           } else {
             // 비어있는 자리이면, 순서에 따라서 흑,백 구분해서 그리는 함수 실행
             count % 2 == 0
@@ -281,9 +282,10 @@ window.onload = function () {
 
     // 현재 버튼 찾기
     const button = document.querySelectorAll("." + color)[n];
-    if (n==0) p1Color = color;
-    else p2Color = color;
+    if (n==0) p1Color = "'"+color+"'";
+    else p2Color = "'"+color+"'";
 
+    console.log(n, p1Color, p2Color);
     // 현재 버튼 스타일 변경
     button.style.backgroundColor = color;
     button.classList.add("highlight-button");
