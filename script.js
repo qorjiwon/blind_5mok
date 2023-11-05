@@ -211,6 +211,7 @@ window.onload = function () {
   
     // 승리 화면 표시
     function winShow(x) {
+        // showOriginal();
       switch (x) {
         case 1:
           // 음악이 재생되도록 약간의 시차를 두고 화면 표시
@@ -232,6 +233,39 @@ window.onload = function () {
           break;
       }
     }
+
+    // function showOriginal(){
+    //     draw();
+    //     drawRect(x, y);
+    //     for (i = 0; i < board.length; i++) { // 모든 눈금의 돌의 유무,색깔 알아내기
+    //     let a = indexToXy(i)[0];
+    //     let b = indexToXy(i)[1];
+
+    //     if (board[xyToIndex(a, b)] == 1) { // Player1(흑)
+    //         ctx.fillStyle = 'black';
+    //         ctx.beginPath();
+    //         ctx.arc(
+    //         a * rowSize + margin,
+    //         b * rowSize + margin,
+    //         dolSize,
+    //         0,
+    //         Math.PI * 2
+    //         );
+    //         ctx.fill();
+    //     }
+    //     if (board[xyToIndex(a, b)] == 2) { // Player2(백)
+    //         ctx.fillStyle = 'white';
+    //         ctx.beginPath();
+    //         ctx.arc(
+    //         a * rowSize + margin,
+    //         b * rowSize + margin,
+    //         dolSize,
+    //         0,
+    //         Math.PI * 2
+    //         );
+    //         ctx.fill();
+    //     }
+    // }
   
     // 마우스 클릭한 위치를 정확한 눈금 위치로 보정
     document.addEventListener('mouseup', (e) => {
@@ -253,10 +287,12 @@ window.onload = function () {
             if (count % 2 == 0){
                 board[xyToIndex(x, y)] = 1;
                 showboard[xyToIndex(x,y)] = p1Color;
+                switchToPlayer2Turn();
             }
             else {
                 board[xyToIndex(x, y)] = 2;
                 showboard[xyToIndex(x,y)] = p2Color;
+                switchToPlayer1Turn();
             }
             count++;
             console.log(count, p1Color, p2Color);
@@ -288,44 +324,42 @@ window.onload = function () {
     button.classList.add("highlight-button");
 }
 
-function disablePlayer1Buttons() {
+function hidePlayer1Buttons() {
     const player1Buttons = document.querySelectorAll(".Player1 button");
     for (const button of player1Buttons) {
-        button.disabled = true;  // Player1 버튼 비활성화
+        button.style.display = "none";  // Player1 버튼 숨기기
     }
 }
 
-function enablePlayer1Buttons() {
-    const player1Buttons = document.querySelectorAll(".Player1 button");
-    for (const button of player1Buttons) {
-        button.disabled = false;  // Player1 버튼 활성화
+function hidePlayer2Buttons() {
+    const player2Buttons = document.querySelectorAll(".Player2 button");
+    for (const button of player2Buttons) {
+        button.style.display = "none";  // Player2 버튼 숨기기
     }
 }
 
-// Player2 차례에 Player1 버튼 비활성화, Player2 버튼 활성화
+function showPlayer1Buttons() {
+    const player1Buttons = document.querySelectorAll(".Player1 button");
+    for (const button of player1Buttons) {
+        button.style.display = "block";  // Player1 버튼 나타내기
+    }
+}
+
+function showPlayer2Buttons() {
+    const player2Buttons = document.querySelectorAll(".Player2 button");
+    for (const button of player2Buttons) {
+        button.style.display = "block";  // Player2 버튼 나타내기
+    }
+}
+
+// Player2 차례에 Player1 버튼 숨기고 Player2 버튼 나타내기
 function switchToPlayer2Turn() {
-    disablePlayer1Buttons();  // Player1 버튼 비활성화
-    enablePlayer2Buttons();   // Player2 버튼 활성화
+    hidePlayer1Buttons();  // Player1 버튼 숨기기
+    showPlayer2Buttons();  // Player2 버튼 나타내기
 }
 
-// Player1 차례에 Player2 버튼 비활성화, Player1 버튼 활성화
+// Player1 차례에 Player2 버튼 숨기고 Player1 버튼 나타내기
 function switchToPlayer1Turn() {
-    disablePlayer2Buttons();  // Player2 버튼 비활성화
-    enablePlayer1Buttons();   // Player1 버튼 활성화
-}
-
-// Player2 버튼들을 활성화하는 함수 (Player2 차례에서 사용)
-function enablePlayer2Buttons() {
-    const player2Buttons = document.querySelectorAll(".Player2 button");
-    for (const button of player2Buttons) {
-        button.disabled = false;  // Player2 버튼 활성화
-    }
-}
-
-// Player2 버튼들을 비활성화하는 함수 (Player1 차례에서 사용)
-function disablePlayer2Buttons() {
-    const player2Buttons = document.querySelectorAll(".Player2 button");
-    for (const button of player2Buttons) {
-        button.disabled = true;  // Player2 버튼 비활성화
-    }
+    hidePlayer2Buttons();  // Player2 버튼 숨기기
+    showPlayer1Buttons();  // Player1 버튼 나타내기
 }
