@@ -1,0 +1,133 @@
+body {
+    margin : 0;
+    padding : 0;
+    margin-left: 0px;
+    margin-top: 10px;
+    background-color: beige;
+    /*
+    background-image: linear-gradient(to right, moccasin 50%, Peachpuff 50%);
+    */
+}
+#main{
+    text-align: center;
+}
+
+.container{
+    display: grid;
+    /* border : 4px solid red; */
+    grid-template-columns: 200px 200px 300px;
+    grid-template-areas: 
+    "message message button"
+    "canvas canvas canvas";
+}
+
+canvas {
+    grid-area: canvas;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: block;
+}
+
+#main{
+    width: 80%;
+    text-align: center;
+}
+
+.buttons {
+    grid-area: button;
+    align-self: center;
+    width: 150px;
+    height: 50px;
+    /* border : 2px solid purple; */
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    grid-template-areas: "withdraw restart";
+    grid-column-gap: 5%
+}
+
+#withdraw {
+    grid-area: withdraw;
+    top : 0px;
+    left : 20px;
+    width: 90px;
+    font : 18px bold;
+}
+
+#reload{
+    grid-area: restart;
+    top : 0px;
+    left : 150px;
+    width: 90px;
+    font : 18px bold;
+}
+
+
+.Player1 {
+    width: 100px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* 왼쪽 아래에 배치 */
+    align-items: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 5px;
+}
+
+.Player1 button {
+    width: 47px;
+    height: 47px;
+    border: none;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.Player1 .red { background-color: red; }
+.Player1 .orange { background-color: orange; }
+.Player1 .yellow { background-color: yellow; }
+.Player1 .green { background-color: green; }
+.Player1 .blue { background-color: blue; }
+.Player1 .purple { background-color: purple; }
+.Player1 .pink { background-color: pink; }
+
+
+.Player2 {
+    width: 100px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 오른쪽 위에 배치 */
+    align-items: center;
+    padding: 10px;
+    position: absolute;
+    right: 5px;
+    top: 20px;
+}
+
+.Player2 button {
+    width: 47px;
+    height: 47px;
+    border: none;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.Player2 .red { background-color: red; }
+.Player2 .orange { background-color: orange; }
+.Player2 .yellow { background-color: yellow; }
+.Player2 .green { background-color: green; }
+.Player2 .blue { background-color: blue; }
+.Player2 .purple { background-color: purple; }
+.Player2 .pink { background-color: pink; }
+
+.highlight-button {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px grey;
+}
+
+

@@ -5,10 +5,10 @@ window.onload = function () {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     const margin = 30;
-    const cw = (ch = canvas.width = canvas.height = 600 + margin * 2);
+    const cw = (ch = canvas.width = canvas.height = 800 + margin * 2);
     const row = 18; // 바둑판 선 개수
-    const rowSize = 600 / row; // 바둑판 한 칸의 너비
-    const dolSize = 13;  // 바둑돌 크기
+    const rowSize = 800 / row; // 바둑판 한 칸의 너비
+    const dolSize = 17;  // 바둑돌 크기
     let count = 0;
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
@@ -29,7 +29,8 @@ window.onload = function () {
     ];
     const blackWinScreen = document.querySelector('.winShow1');
     const whiteWinScreen = document.querySelector('.winShow2');
-  
+    switchToPlayer1Turn();
+
     // '한판 더' 버튼 누르면, 페이지 reload
     btn1.addEventListener('mouseup', () => {
       setTimeout(() => {
@@ -234,7 +235,7 @@ window.onload = function () {
       }
     }
 
-    // function showOriginal(){
+    // function showOriginal(){ // 모든 돌의 흑/백 보여주기
     //     draw();
     //     drawRect(x, y);
     //     for (i = 0; i < board.length; i++) { // 모든 눈금의 돌의 유무,색깔 알아내기
@@ -318,9 +319,9 @@ window.onload = function () {
     if (n==0) p1Color = color;
     else p2Color = color;
 
-    console.log(n, p1Color, p2Color);
+    // 로그에 현재 플레이어와 컬러 정보 출력
+    console.log("Player:", n+1, "Color:", (n === 0) ? p1Color : p2Color);
     // 현재 버튼 스타일 변경
-    button.style.backgroundColor = color;
     button.classList.add("highlight-button");
 }
 
@@ -343,6 +344,9 @@ function showPlayer1Buttons() {
     for (const button of player1Buttons) {
         button.style.display = "block";  // Player1 버튼 나타내기
     }
+    // 하이라이트 표시
+    const button = document.querySelectorAll("." + p1Color)[0];
+    button.classList.add("highlight-button");
 }
 
 function showPlayer2Buttons() {
@@ -350,6 +354,9 @@ function showPlayer2Buttons() {
     for (const button of player2Buttons) {
         button.style.display = "block";  // Player2 버튼 나타내기
     }
+    // 하이라이트 표시
+    const button = document.querySelectorAll("." + p2Color)[1];
+    button.classList.add("highlight-button");
 }
 
 // Player2 차례에 Player1 버튼 숨기고 Player2 버튼 나타내기
