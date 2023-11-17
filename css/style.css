@@ -73,3 +73,11 @@ canvas {
     border-color: Lightsteelblue;
     border-radius: 10px;
 }
+
+#canvasContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease-in-out;
+  }
