@@ -8,7 +8,7 @@ window.onload = function () {
     const cw = (ch = canvas.width = canvas.height = 800 + margin * 2);
     const row = 18; // 바둑판 선 개수
     const rowSize = 800 / row; // 바둑판 한 칸의 너비
-    const dolSize = 17;  // 바둑돌 크기
+    const dolSize = 18;  // 바둑돌 크기
     let count = 0;
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
@@ -272,9 +272,9 @@ window.onload = function () {
         console.log(e.offsetX, e.offsetY, x, y);
         if (
           e.offsetX > 10 &&
-          e.offsetX < 640 &&
+          e.offsetX < 840 &&
           e.offsetY > 10 &&
-          e.offsetY < 640
+          e.offsetY < 840
         ) {
           
           if (board[xyToIndex(x, y)] != -1) {
