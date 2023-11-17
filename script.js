@@ -213,6 +213,36 @@ window.onload = function () {
     // 승리 화면 표시
     function winShow(x) {
         // showOriginal();
+        // 모든 돌의 색을 검정 또는 하얀색으로 변경
+        for (let i = 0; i < board.length; i++) {
+          let a = indexToXy(i)[0];
+          let b = indexToXy(i)[1];
+
+          if (board[xyToIndex(a, b)] == 1) { // Player1(흑)
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(
+              a * rowSize + margin,
+              b * rowSize + margin,
+              dolSize,
+              0,
+              Math.PI * 2
+            );
+            ctx.fill();
+          }
+          if (board[xyToIndex(a, b)] == 2) { // Player2(백)
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(
+              a * rowSize + margin,
+              b * rowSize + margin,
+              dolSize,
+              0,
+              Math.PI * 2
+            );
+            ctx.fill();
+          }
+        }
       switch (x) {
         case 1:
           // 음악이 재생되도록 약간의 시차를 두고 화면 표시
@@ -235,40 +265,6 @@ window.onload = function () {
       }
     }
 
-    // function showOriginal(){ // 모든 돌의 흑/백 보여주기
-    //     draw();
-    //     drawRect(x, y);
-    //     for (i = 0; i < board.length; i++) { // 모든 눈금의 돌의 유무,색깔 알아내기
-    //     let a = indexToXy(i)[0];
-    //     let b = indexToXy(i)[1];
-
-    //     if (board[xyToIndex(a, b)] == 1) { // Player1(흑)
-    //         ctx.fillStyle = 'black';
-    //         ctx.beginPath();
-    //         ctx.arc(
-    //         a * rowSize + margin,
-    //         b * rowSize + margin,
-    //         dolSize,
-    //         0,
-    //         Math.PI * 2
-    //         );
-    //         ctx.fill();
-    //     }
-    //     if (board[xyToIndex(a, b)] == 2) { // Player2(백)
-    //         ctx.fillStyle = 'white';
-    //         ctx.beginPath();
-    //         ctx.arc(
-    //         a * rowSize + margin,
-    //         b * rowSize + margin,
-    //         dolSize,
-    //         0,
-    //         Math.PI * 2
-    //         );
-    //         ctx.fill();
-    //     }
-    // }
-  
-    // 마우스 클릭한 위치를 정확한 눈금 위치로 보정
     document.addEventListener('mouseup', (e) => {
       if (e.target.id == 'canvas') {
         let x = Math.round(Math.abs(e.offsetX - margin) / rowSize);
@@ -300,10 +296,20 @@ window.onload = function () {
             console.log(board);
             console.log(showboard);
             drawCircle(x, y);
+
+            if (count % 10 === 0) {
+              var canvasContainer = document.getElementById('canvasContainer');
+              rotateDegree += 90;
+              canvasContainer.style.transform = "rotate(" + rotateDegree + "deg)";
+            }
           }
         }
       }
+      
     });
+    var rotateDegree = 0;
+
+
   };
 
   function changeColorAndSize(color, n) {
