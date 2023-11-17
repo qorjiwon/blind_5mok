@@ -8,6 +8,7 @@ body {
     background-image: linear-gradient(to right, moccasin 50%, Peachpuff 50%);
     */
 }
+
 #main{
     text-align: center;
 }
@@ -39,13 +40,14 @@ canvas {
 .buttons {
     grid-area: button;
     align-self: center;
-    width: 150px;
+    width: 200px;
     height: 50px;
     /* border : 2px solid purple; */
     display: grid;
     grid-template-columns: 5fr 5fr;
     grid-template-areas: "withdraw restart";
-    grid-column-gap: 5%
+    grid-column-gap: 5px;
+    padding:30px;
 }
 
 #withdraw {
@@ -53,7 +55,11 @@ canvas {
     top : 0px;
     left : 20px;
     width: 90px;
+    height: 60px;
     font : 18px bold;
+    background-color: aliceblue;
+    border-color: Lightsteelblue;
+    border-radius: 10px;
 }
 
 #reload{
@@ -61,73 +67,11 @@ canvas {
     top : 0px;
     left : 150px;
     width: 90px;
+    height: 60px;
     font : 18px bold;
-}
-
-
-.Player1 {
-    width: 100px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* 왼쪽 아래에 배치 */
-    align-items: center;
-    padding: 10px;
-    position: absolute;
-    bottom: 5px;
-}
-
-.Player1 button {
-    width: 47px;
-    height: 47px;
-    border: none;
-    border-radius: 50%;
-    margin: 5px;
-    cursor: pointer;
-}
-
-.Player1 .red { background-color: red; }
-.Player1 .orange { background-color: orange; }
-.Player1 .yellow { background-color: yellow; }
-.Player1 .green { background-color: green; }
-.Player1 .blue { background-color: blue; }
-.Player1 .purple { background-color: purple; }
-.Player1 .pink { background-color: pink; }
-
-
-.Player2 {
-    width: 100px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* 오른쪽 위에 배치 */
-    align-items: center;
-    padding: 10px;
-    position: absolute;
-    right: 5px;
-    top: 20px;
-}
-
-.Player2 button {
-    width: 47px;
-    height: 47px;
-    border: none;
-    border-radius: 50%;
-    margin: 5px;
-    cursor: pointer;
-}
-
-.Player2 .red { background-color: red; }
-.Player2 .orange { background-color: orange; }
-.Player2 .yellow { background-color: yellow; }
-.Player2 .green { background-color: green; }
-.Player2 .blue { background-color: blue; }
-.Player2 .purple { background-color: purple; }
-.Player2 .pink { background-color: pink; }
-
-.highlight-button {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px grey;
+    background-color: aliceblue;
+    border-color: Lightsteelblue;
+    border-radius: 10px;
 }
 
 #canvasContainer {
@@ -137,4 +81,3 @@ canvas {
     transform: translate(-50%, -50%);
     transition: transform 0.5s ease-in-out;
   }
-  
