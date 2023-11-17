@@ -36,30 +36,42 @@
                     <img id="trophyImg2" src="trophy.png" width="300px" height="300px" alt="">
                 </div>
             </div>
+                <div id="canvasContainer">
                     <canvas id="canvas"></canvas>
+                </div>
             </div>
             <div>
-                <div class="Player1">
-                    <button class="red" onclick="changeColorAndSize('red',0)"></button>
-                    <button class="orange" onclick="changeColorAndSize('orange',0)"></button>
-                    <button class="yellow" onclick="changeColorAndSize('yellow',0)"></button>
-                    <button class="green" onclick="changeColorAndSize('green',0)"></button>
-                    <button class="blue" onclick="changeColorAndSize('blue',0)"></button>
-                    <button class="purple" onclick="changeColorAndSize('purple',0)"></button>
-                    <button class="pink" onclick="changeColorAndSize('pink',0)"></button>
+                <div class="Deck1"> 
+                    <div class="Player1" >
+                        <button id="place-stone-button">착수</button>
+                        <button class="red" onclick="changeColorAndSize('red',0)"></button>
+                        <button class="orange" onclick="changeColorAndSize('orange',0)"></button>
+                        <button class="yellow" onclick="changeColorAndSize('yellow',0)"></button>
+                        <button class="green" onclick="changeColorAndSize('green',0)"></button>
+                        <button class="blue" onclick="changeColorAndSize('blue',0)"></button>
+                        <button class="purple" onclick="changeColorAndSize('purple',0)"></button>
+                        <button class="pink" onclick="changeColorAndSize('pink',0)"></button>
+                    </div>
+
                 </div>
-                <div class="Player2">
-                    <button class="red" onclick="changeColorAndSize('red',1)"></button>
-                    <button class="orange" onclick="changeColorAndSize('orange',1)"></button>
-                    <button class="yellow" onclick="changeColorAndSize('yellow',1)"></button>
-                    <button class="green" onclick="changeColorAndSize('green',1)"></button>
-                    <button class="blue" onclick="changeColorAndSize('blue',1)"></button>
-                    <button class="purple" onclick="changeColorAndSize('purple',1)"></button>
-                    <button class="pink" onclick="changeColorAndSize('pink',1)"></button>
+                <div class="Deck2"> 
+                    <div class="Player2">
+                        <button id="place-stone-button">착수</button>
+                        <button class="red" onclick="changeColorAndSize('red',1)"></button>
+                        <button class="orange" onclick="changeColorAndSize('orange',1)"></button>
+                        <button class="yellow" onclick="changeColorAndSize('yellow',1)"></button>
+                        <button class="green" onclick="changeColorAndSize('green',1)"></button>
+                        <button class="blue" onclick="changeColorAndSize('blue',1)"></button>
+                        <button class="purple" onclick="changeColorAndSize('purple',1)"></button>
+                        <button class="pink" onclick="changeColorAndSize('pink',1)"></button>
+                    </div>
+                        
                 </div>
                 <div id="turn"></div>
             </div>
         </section>
     </div>
+    
+
 </body>
 </html>

@@ -1,5 +1,8 @@
 let p1Color = 'red';
 let p2Color = 'red';
+let selectedPosition = null;
+let prevRect = null; // 이전에 그려진 네모의 위치를 저장하는 변수
+
 
 window.onload = function () {
     canvas = document.getElementById('canvas');
@@ -8,7 +11,7 @@ window.onload = function () {
     const cw = (ch = canvas.width = canvas.height = 800 + margin * 2);
     const row = 18; // 바둑판 선 개수
     const rowSize = 800 / row; // 바둑판 한 칸의 너비
-    const dolSize = 18;  // 바둑돌 크기
+    const dolSize = 17;  // 바둑돌 크기
     let count = 0;
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
@@ -101,11 +104,10 @@ window.onload = function () {
         w + rowSize/2
       );
     };
-  
+    
     //바둑알 그리기. 실제로는 바둑판까지 매번 통째로 그려줌
     drawCircle = (x, y) => {
       draw();
-      drawRect(x, y);
       for (i = 0; i < board.length; i++) { // 모든 눈금의 돌의 유무,색깔 알아내기
         let a = indexToXy(i)[0];
         let b = indexToXy(i)[1];
@@ -182,7 +184,7 @@ window.onload = function () {
         }
       }
     };
-  
+
     // 승패 판정 함수
     function checkWin(x, y) {
       let thisColor = board[xyToIndex(x, y)]; // 마지막 둔 돌의 색깔이 1(흑),2(백)인지...
@@ -276,33 +278,47 @@ window.onload = function () {
           e.offsetY > 10 &&
           e.offsetY < 840
         ) {
-          
           if (board[xyToIndex(x, y)] != -1) {
             // 이미 돌이 놓여진 자리이면 아무것도 하지 않음
           } else {
-            // 비어있는 자리이면, 순서에 따라서 흑,백 구분해서 그리는 함수 실행
-            if (count % 2 == 0){
+            // 비어있는 자리이면, 사용자가 클릭한 위치를 저장
+            selectedPosition = { x, y };
+            drawCircle(x, y);
+            drawRect(x, y);
+          }
+          const placeStoneButton = document.querySelector('#place-stone-button');
+          placeStoneButton.addEventListener('click', () => {
+            if (selectedPosition) {
+              let x = selectedPosition.x;
+              let y = selectedPosition.y;
+              if (count % 2 == 0){
                 board[xyToIndex(x, y)] = 1;
                 showboard[xyToIndex(x,y)] = p1Color;
                 switchToPlayer2Turn();
-            }
-            else {
+              }
+              else {
                 board[xyToIndex(x, y)] = 2;
                 showboard[xyToIndex(x,y)] = p2Color;
                 switchToPlayer1Turn();
-            }
-            count++;
-            console.log(count, p1Color, p2Color);
-            console.log(board);
-            console.log(showboard);
-            drawCircle(x, y);
+              }
+              count++;
+              console.log(count, p1Color, p2Color);
+              console.log(board);
+              console.log(showboard);
+              drawCircle(x, y);
 
-            if (count % 10 === 0) {
-              var canvasContainer = document.getElementById('canvasContainer');
-              rotateDegree += 90;
-              canvasContainer.style.transform = "rotate(" + rotateDegree + "deg)";
+              if (count % 10 === 0) {
+                var canvasContainer = document.getElementById('canvasContainer');
+                rotateDegree += 90;
+                canvasContainer.style.transform = "rotate(" + rotateDegree + "deg)";
+              }
+
+              // 돌을 놓았으므로 선택한 위치를 초기화
+              selectedPosition = null;
             }
-          }
+
+          });
+
         }
       }
       
