@@ -286,8 +286,10 @@ window.onload = function () {
             drawCircle(x, y);
             drawRect(x, y);
           }
-          const placeStoneButton = document.querySelector('#place-stone-button');
-          placeStoneButton.addEventListener('click', () => {
+
+          const placeStoneButton1 = document.querySelector('#place-stone-button1');
+          const placeStoneButton2 = document.querySelector('#place-stone-button2');
+          placeStoneButton1.addEventListener('click', () => {
             if (selectedPosition) {
               let x = selectedPosition.x;
               let y = selectedPosition.y;
@@ -316,7 +318,37 @@ window.onload = function () {
               // 돌을 놓았으므로 선택한 위치를 초기화
               selectedPosition = null;
             }
+          });
+          
+          placeStoneButton2.addEventListener('click', () => {
+            if (selectedPosition) {
+              let x = selectedPosition.x;
+              let y = selectedPosition.y;
+              if (count % 2 == 0){
+                board[xyToIndex(x, y)] = 1;
+                showboard[xyToIndex(x,y)] = p1Color;
+                switchToPlayer2Turn();
+              }
+              else {
+                board[xyToIndex(x, y)] = 2;
+                showboard[xyToIndex(x,y)] = p2Color;
+                switchToPlayer1Turn();
+              }
+              count++;
+              console.log(count, p1Color, p2Color);
+              console.log(board);
+              console.log(showboard);
+              drawCircle(x, y);
 
+              if (count % 10 === 0) {
+                var canvasContainer = document.getElementById('canvasContainer');
+                rotateDegree += 90;
+                canvasContainer.style.transform = "rotate(" + rotateDegree + "deg)";
+              }
+
+              // 돌을 놓았으므로 선택한 위치를 초기화
+              selectedPosition = null;
+            }
           });
 
         }
