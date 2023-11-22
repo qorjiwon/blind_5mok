@@ -11,7 +11,7 @@ window.onload = function () {
     const cw = (ch = canvas.width = canvas.height = 800 + margin * 2);
     const row = 18; // 바둑판 선 개수
     const rowSize = 800 / row; // 바둑판 한 칸의 너비
-    const dolSize = 17;  // 바둑돌 크기
+    const dolSize = 19;  // 바둑돌 크기
     let count = 0;
     let msg = document.querySelector('.message');
     let btn1 = document.querySelector('#reload');
@@ -33,6 +33,16 @@ window.onload = function () {
     const blackWinScreen = document.querySelector('.winShow1');
     const whiteWinScreen = document.querySelector('.winShow2');
     switchToPlayer1Turn();
+    startTimer();
+
+    let timer1 = 30;
+    let timer2 = 30;
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
 
     // '한판 더' 버튼 누르면, 페이지 reload
     btn1.addEventListener('mouseup', () => {
@@ -42,12 +52,39 @@ window.onload = function () {
     });
     // 무르기 버튼 누르면, withdraw() 함수 실행
     btn2.addEventListener('mouseup', () => {
-
       withdraw();
     });
   
     draw(); // 시작하면서 빈 바둑판 그리기
   
+    function startTimer() {
+      // 1초마다 타이머를 감소시키는 setInterval
+      const timerId = setInterval(function () {
+        if (count != 0) {
+          // 현재 플레이어가 1일 때
+          if (count%2 == 0) {
+            // 플레이어 1의 타이머를 감소하고 화면에 표시
+            timer1--;
+            document.getElementById('timer1').innerHTML = formatTime(timer1);
+            // 플레이어 1의 타이머가 0이 되면 게임 종료
+            if (timer1 === 0) {
+                clearInterval(timerId);
+                winShow(2);
+            }
+        } else { // 현재 플레이어가 2일 때
+            // 플레이어 2의 타이머를 감소하고 화면에 표시
+            timer2--;
+            document.getElementById('timer2').innerHTML = formatTime(timer2);
+            // 플레이어 2의 타이머가 0이 되면 게임 종료
+            if (timer2 === 0) {
+                clearInterval(timerId);
+                winShow(1);
+            }
+        }
+        }
+      }, 1000);
+    }
+
     // x,y 좌표를 배열의 index값으로 변환
     let xyToIndex = (x, y) => {
       return x + y * (row + 1);
@@ -63,12 +100,12 @@ window.onload = function () {
   
     // 바둑판 그리기 함수
     function draw() {
-      ctx.fillStyle = 'Lightsteelblue';
+      ctx.fillStyle = '#d3e3fd';
       ctx.fillRect(0, 0, cw, ch);
       for (let x = 0; x < row; x++) {
         for (let y = 0; y < row; y++) {
           let w = (cw - margin * 2) / row;
-          ctx.strokeStyle = 'white';
+          ctx.strokeStyle = '#041e49';
           ctx.lineWidth = 1;
           ctx.strokeRect(w * x + margin, w * y + margin, w, w);
         }
@@ -77,7 +114,7 @@ window.onload = function () {
       // 화점에 점 찍기
       for (let a = 0; a < 3; a++) {
         for (let b = 0; b < 3; b++) {
-          ctx.fillStyle = 'white';
+          ctx.fillStyle = '#041e49';
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.arc(
@@ -268,6 +305,7 @@ window.onload = function () {
     }
 
     document.addEventListener('mouseup', (e) => {
+      timer1 = 31; // 타이머 초기화
       if (e.target.id == 'canvas') {
         let x = Math.round(Math.abs(e.offsetX - margin) / rowSize);
         let y = Math.round(Math.abs(e.offsetY - margin) / rowSize);
@@ -317,10 +355,15 @@ window.onload = function () {
 
               // 돌을 놓았으므로 선택한 위치를 초기화
               selectedPosition = null;
+              // 타이머 숨기기
+              document.getElementById('timer1').style.display = 'none';
+              // 타이머 보이기
+              document.getElementById('timer2').style.display = 'block';
             }
           });
           
           placeStoneButton2.addEventListener('click', () => {
+            timer2 = 31; // 타이머 초기화
             if (selectedPosition) {
               let x = selectedPosition.x;
               let y = selectedPosition.y;
@@ -348,6 +391,11 @@ window.onload = function () {
 
               // 돌을 놓았으므로 선택한 위치를 초기화
               selectedPosition = null;
+
+              // 타이머 숨기기
+              document.getElementById('timer2').style.display = 'none';
+              // 타이머 보이기
+              document.getElementById('timer1').style.display = 'block';
             }
           });
 
@@ -423,4 +471,19 @@ function switchToPlayer2Turn() {
 function switchToPlayer1Turn() {
     hidePlayer2Buttons();  // Player2 버튼 숨기기
     showPlayer1Buttons();  // Player1 버튼 나타내기
+}
+
+// 시작하기 버튼 가져오기
+const startButton = document.getElementById('startButton');
+
+// 시작하기 버튼 클릭 이벤트 처리
+startButton.addEventListener('click', () => {
+    // 게임 시작
+    startGame();
+});
+
+// 게임 시작 함수
+function startGame() {
+    // Player1 타이머 시작
+    startTimer(player1, timer1, 'timer1');
 }

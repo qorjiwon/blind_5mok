@@ -7,15 +7,15 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/win.css">
-    <link rel="stylesheet" href="./css/colorbutton.css">
+    <link rel="stylesheet" href="./css/Playerbutton.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <section id="main" class="mx-auto my-5 py-5 px-3">
-            <div class="mainName" style="font-family: 'Kdam Thmor Pro', sans-serif; font-size: 30px; margin-left: 100px">Blind Five mok</div>
+        <section id="main">
+            <div class="mainName" style="font-family: 'Kdam Thmor Pro', sans-serif; font-size: 30px; margin-left: 100px; margin-top: 45%">Blind Five mok</div>
             <div class="buttons">
                 <div>
                     <button id="withdraw">무르기</button>
@@ -24,6 +24,7 @@
                     <button id="reload">다시하기</button>
                 </div>
             </div>
+            <!-- <button id="startButton" onclick="startTimer()">시작하기</button> -->
         </section>
         <section id="game">
             <div class="winShow1">Player1 승리! <!--검정-->
@@ -41,37 +42,31 @@
                 </div>
             </div>
             <div>
-                <div class="Deck1"> 
-                    <div class="Player1" >
-                        <button id="place-stone-button1">착수</button>
-                        <button class="red" onclick="changeColorAndSize('red',0)"></button>
-                        <button class="orange" onclick="changeColorAndSize('orange',0)"></button>
-                        <button class="yellow" onclick="changeColorAndSize('yellow',0)"></button>
-                        <button class="green" onclick="changeColorAndSize('green',0)"></button>
-                        <button class="blue" onclick="changeColorAndSize('blue',0)"></button>
-                        <button class="purple" onclick="changeColorAndSize('purple',0)"></button>
-                        <button class="pink" onclick="changeColorAndSize('pink',0)"></button>
-                    </div>
-
+                <div class="timer" id="timer1">0:30</div>
+                <div class="timer" id="timer2" style="display: none;">0:30</div>
+                <div class="Player1">
+                    <button id="place-stone-button1" onclick="placeStone()">착수</button>
+                    <button class="red" onclick="changeColorAndSize('red',0)"></button>
+                    <button class="orange" onclick="changeColorAndSize('orange',0)"></button>
+                    <button class="yellow" onclick="changeColorAndSize('yellow',0)"></button>
+                    <button class="green" onclick="changeColorAndSize('green',0)"></button>
+                    <button class="blue" onclick="changeColorAndSize('blue',0)"></button>
+                    <button class="purple" onclick="changeColorAndSize('purple',0)"></button>
+                    <button class="pink" onclick="changeColorAndSize('pink',0)"></button>
                 </div>
-                <div class="Deck2"> 
-                    <div class="Player2">
-                        <button id="place-stone-button2">착수</button>
-                        <button class="red" onclick="changeColorAndSize('red',1)"></button>
-                        <button class="orange" onclick="changeColorAndSize('orange',1)"></button>
-                        <button class="yellow" onclick="changeColorAndSize('yellow',1)"></button>
-                        <button class="green" onclick="changeColorAndSize('green',1)"></button>
-                        <button class="blue" onclick="changeColorAndSize('blue',1)"></button>
-                        <button class="purple" onclick="changeColorAndSize('purple',1)"></button>
-                        <button class="pink" onclick="changeColorAndSize('pink',1)"></button>
-                    </div>
-                        
+                <div class="Player2">
+                    <button id="place-stone-button2" onclick="placeStone()">착수</button>
+                    <button class="red" onclick="changeColorAndSize('red',1)"></button>
+                    <button class="orange" onclick="changeColorAndSize('orange',1)"></button>
+                    <button class="yellow" onclick="changeColorAndSize('yellow',1)"></button>
+                    <button class="green" onclick="changeColorAndSize('green',1)"></button>
+                    <button class="blue" onclick="changeColorAndSize('blue',1)"></button>
+                    <button class="purple" onclick="changeColorAndSize('purple',1)"></button>
+                    <button class="pink" onclick="changeColorAndSize('pink',1)"></button>
                 </div>
-                <div id="turn"></div>
+            <div id="turn"></div>
             </div>
         </section>
     </div>
-    
-
 </body>
 </html>
