@@ -14,6 +14,8 @@
 
 ## 📄 Guideline
 
+## 👉[블라인드 오목 하러가기](https://qorjiwon.github.io/)
+
 #### clone
 ```bash
 git clone https://github.com/qorjiwon/blind_5mok.git
